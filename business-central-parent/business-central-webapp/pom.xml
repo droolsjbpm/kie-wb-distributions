@@ -2839,10 +2839,21 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>io.thorntail</groupId>
-        <artifactId>thorntail-maven-plugin</artifactId>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-jar-maven-plugin</artifactId>
+<!--        <configuration>-->
+<!--          <filterWebInfLib>uberjar-only</filterWebInfLib>-->
         <configuration>
-          <filterWebInfLib>uberjar-only</filterWebInfLib>
+          <cli-sessions>
+            <cli-session>
+              <script-files>
+                <script>script.cli</script>
+              </script-files>
+            </cli-session>
+          </cli-sessions>
+<!--          <extra-server-content-dirs>-->
+<!--            <extra-content>temp</extra-content>-->
+<!--          </extra-server-content-dirs>-->
         </configuration>
       </plugin>
       <plugin>
