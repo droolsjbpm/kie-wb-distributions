@@ -1678,12 +1678,25 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>io.thorntail</groupId>
-        <artifactId>thorntail-maven-plugin</artifactId>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-jar-maven-plugin</artifactId>
         <configuration>
-          <filterWebInfLib>uberjar-only</filterWebInfLib>
+          <cli-sessions>
+            <cli-session>
+              <script-files>
+                <script>../scripts/script.cli</script>
+              </script-files>
+            </cli-session>
+          </cli-sessions>
         </configuration>
       </plugin>
+<!--      <plugin>-->
+<!--        <groupId>io.thorntail</groupId>-->
+<!--        <artifactId>thorntail-maven-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          <filterWebInfLib>uberjar-only</filterWebInfLib>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
