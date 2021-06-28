@@ -1,0 +1,22 @@
+#/subsystem=security/security-domain=other:remove
+
+#/extension=org.wildfly.extension.elytron:add
+#/subsystem=elytron:add
+
+
+
+/subsystem=elytron/properties-realm=KIERealm:add(users-properties={path=application-users.properties, relative-to=jboss.server.config.dir, plain-text=true, digest-realm-name="KIEDomain"}, groups-properties={path=application-roles.properties, relative-to=jboss.server.config.dir})
+/subsystem=elytron/security-domain=KIEDomain:add(realms=[{realm=KIERealm, role-decoder=groups-to-roles}], default-realm="KIERealm", permission-mapper=default-permission-mapper)
+/subsystem=elytron/http-authentication-factory=kie-http-auth:add( http-server-mechanism-factory=global, security-domain=KIEDomain, mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=KIERealm}]}, {mechanism-name=FORM}])
+/subsystem=undertow/application-security-domain=other:add(security-domain=KIEDomain)
+
+/subsystem=ejb3/application-security-domain=other:write-attribute(name=security-domain, value=KIEDomain)
+#/subsystem=ejb3/application-security-domain=other:add(security-domain=KIEDomain)
+
+#/subsystem=messaging-activemq/server=default:write-attribute(name=elytron-domain, value=KIEDomain)
+
+#/subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
+
+#/subsystem=security:write-attribute(name=initialize-jacc, value=false)
+
+/subsystem=elytron/policy=jacc:add(jacc-policy={})
